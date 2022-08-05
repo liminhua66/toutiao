@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // JSON.parse(localStorage.getItem('TOUITIAO-TOKEN'))
   state: {
-    tokenObj: getToken() || {}
+    tokenObj: getToken() || ''
   },
   getters: {},
   mutations: {

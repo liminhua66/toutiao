@@ -1,4 +1,4 @@
-import request from '@/utils/requst'
+import request from '@/utils/request'
 /**
  *
  * @param {*string} mobile 手机号
@@ -13,6 +13,7 @@ export const getLogin = (data) =>
     method: 'POST'
   })
 // 发送验证码
-export const getCodeApi = (mobile) => request({
-  url: `/v1_0/sms/codes/${mobile}`
-})
+export const getCodeApi = (mobile) =>
+  request({
+    url: `/v1_0/sms/codes/${mobile}`
+  })
