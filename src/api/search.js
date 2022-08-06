@@ -11,7 +11,8 @@ export const getSearchSuggestionsApi = (q) =>
     params: { q }
   })
 
-export const getSearchResultApi = () =>
+export const getSearchResultApi = (q) =>
   request({
-    url: '/v1_0/search'
+    url: '/v1_0/search',
+    params: { q }
   })

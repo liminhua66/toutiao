@@ -1,5 +1,11 @@
 <template>
-  <div>搜索结果</div>
+  <div>
+    <van-cell
+      v-for="(item, index) in result"
+      :key="index"
+      :title="item.title"
+    />
+  </div>
 </template>
 
 <script>
@@ -7,7 +13,7 @@ import { getSearchResultApi } from '@/api'
 export default {
   data() {
     return {
-      suggestionList: []
+      result: []
     }
   },
   props: {
@@ -15,10 +21,17 @@ export default {
       type: String
     }
   },
+  created() {
+    this.getSearchResult()
+  },
   methods: {
     async getSearchResult() {
-      const { data } = await getSearchResultApi(this.keywords)
-      console.log(data)
+      try {
+        const { data } = await getSearchResultApi(this.keywords)
+        this.result = data.data.results
+      } catch (error) {
+        this.$toast.fail('获取数据失败，请重新获取')
+      }
     }
   }
 }

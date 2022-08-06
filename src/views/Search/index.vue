@@ -10,12 +10,18 @@
         class="search"
         @search="onSearch"
         @focus="onSearchFocus"
+        @cancel="onCancel"
       />
     </form>
     <!-- <search-history></search-history>
     <search-suggestion></search-suggestion>
     <search-result></search-result> -->
-    <component :is="componentName" :keywords="keywords"></component>
+    <component
+      :is="componentName"
+      :keywords="keywords"
+      :searchHistory="searchHistory"
+      @getLocalData="getLocalData"
+    ></component>
   </div>
 </template>
 
@@ -29,16 +35,29 @@ export default {
   data() {
     return {
       keywords: '',
-      isSearchResult: false
+      isSearchResult: false,
+      searchHistory: []
     }
+  },
+  created() {
+    this.getLocalData()
   },
   methods: {
     onSearch() {
       this.isSearchResult = true
+      this.searchHistory.unshift(this.keywords)
+      localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory))
     },
     onSearchFocus() {
       // 更改计算属性componentName的依赖项，触发计算属性重新计算
       this.isSearchResult = false
+    },
+    onCancel() {
+      this.$router.go(-1)
+    },
+    getLocalData() {
+      this.searchHistory =
+        JSON.parse(localStorage.getItem('searchHistory')) || []
     }
   },
   computed: {

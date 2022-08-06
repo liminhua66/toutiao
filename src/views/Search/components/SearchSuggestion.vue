@@ -47,6 +47,7 @@ export default {
       })
     }
   },
+
   watch: {
     keywords: {
       immediate: true,
